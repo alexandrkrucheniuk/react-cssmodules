@@ -1,0 +1,21 @@
+.header{
+    height: 200px;
+    background :rebeccapurple url("../../images/gif.png") no-repeat center;
+    background-size: 100%;
+    animation: backgroundSizeChange 2s ease-out;
+
+    @keyframes backgroundSizeChange {
+        0%   {
+            background-size: 10%;
+            background-color: #663399;
+        }
+        50%{
+            background-color: #0c9099;
+            background-size: 50%;
+        }
+        100% {
+            background-size: 100%;
+            background-color: white;
+        }
+    }
+}
