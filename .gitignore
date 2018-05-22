@@ -1,0 +1,10 @@
+#IDE
+/.idea/
+
+
+# Modules dependencies
+/node_modules/
+/package-lock.json
+
+#build files
+/dist/

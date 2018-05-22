@@ -1,83 +1,78 @@
-const HtmlWebPackPlugin = require("html-webpack-plugin");
-const path = require("path");
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     module: {
         rules: [{
             oneOf: [
                 {
-                    test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-                    loader: require.resolve('url-loader'),
+                    test:    [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+                    loader:  require.resolve('url-loader'),
                     options: {
                         limit: 100000,
-                        name: 'static/media/[name].[hash:8].[ext]'
-                    }
+                        name:  'static/media/[name].[hash:8].[ext]',
+                    },
                 },
                 {
-                    test: /\.js$/,
+                    test:    /\.js$/,
                     exclude: /node_modules/,
-                    use: [
-                        "babel-loader",
-                        "eslint-loader",
-                    ]
+                    use:     [
+                        'babel-loader',
+                        'eslint-loader'
+                    ],
                 },
                 {
                     test: /\.html$/,
-                    use: [
+                    use:  [
                         {
-                            loader: "html-loader",
-                            options: {minimize: true}
+                            loader:  'html-loader',
+                            options: { minimize: true },
                         }
-                    ]
+                    ],
                 },
                 {
                     test: /\.scss$/,
-                    use: [
+                    use:  [
                         {
-                            loader: 'style-loader'
+                            loader: 'style-loader',
                         },
                         {
-                            loader: 'css-loader',
+                            loader:  'css-loader',
                             options: {
-                                modules: 'true',
+                                modules:        'true',
                                 localIdentName:
-                                    '[path][name]__[local]--[hash:base64:5]'
-                            }
+                                    '[path][name]__[local]--[hash:base64:5]',
+                            },
                         },
                         {
-                            loader: 'sass-loader',
+                            loader:  'sass-loader',
                             options: {
-                                modules: 'true',
+                                modules:        'true',
                                 localIdentName:
-                                    '[path][name]__[local]--[hash:base64:5]'
-                            }
+                                    '[path][name]__[local]--[hash:base64:5]',
+                            },
                         }
-                    ]
+                    ],
                 },
                 {
-                    // Exclude `js` files to keep "css" loader working as it injects
-                    // it's runtime that would otherwise processed through "file" loader.
-                    // Also exclude `html` and `json` extensions so they get processed
-                    // by webpacks internal loaders.
                     exclude: [/\.js$/, /\.html$/, /\.json$/],
-                    loader: require.resolve('file-loader'),
+                    loader:  require.resolve('file-loader'),
                     options: {
-                        name: 'static/media/[name].[hash:8].[ext]'
-                    }
+                        name: 'static/media/[name].[hash:8].[ext]',
+                    },
                 }
-            ]
-        }]
+            ],
+        }],
     },
     plugins: [
         new HtmlWebPackPlugin({
-            template: "./src/index.html",
-            filename: "./index.html"
+            template: './src/index.html',
+            filename: './index.html',
         })
     ],
     devServer: {
-        inline: true,
-        port: 1337,
+        inline:   true,
+        port:     1337,
         compress: true,
-        overlay: true
+        overlay:  true,
     },
 };
