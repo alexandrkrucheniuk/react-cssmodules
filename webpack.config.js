@@ -1,6 +1,27 @@
-const HtmlWebPackPlugin = require('html-webpack-plugin');
+const path = require('path'),
+    createSrcPath = (pathname) => path.resolve(__dirname, 'src', pathname);
 
 module.exports = {
+    entry: {
+        config:      './src/config/index.js',
+        live_config: './src/live_config/index.js',
+        viewer:      './src/viewer/index.js',
+    },
+
+    output: {
+        path:     path.resolve(__dirname, 'public'),
+        filename: '[name].js',
+    },
+
+    resolve: {
+        alias: {
+            components: createSrcPath('components'),
+            viewer:     createSrcPath('viewer'),
+            config:     createSrcPath('config'),
+            liveconfig: createSrcPath('live_config'),
+            reducers:   createSrcPath('reducers'),
+        },
+    },
     module: {
         rules: [{
             oneOf: [
@@ -20,15 +41,16 @@ module.exports = {
                         'eslint-loader'
                     ],
                 },
-                {
-                    test: /\.html$/,
-                    use:  [
-                        {
-                            loader:  'html-loader',
-                            options: { minimize: true },
-                        }
-                    ],
-                },
+
+                /*    {
+                        test: /\.html$/,
+                        use:  [
+                            {
+                                loader:  'html-loader',
+                                options: { minimize: true },
+                            }
+                        ],
+                    },*/
                 {
                     test: /\.scss$/,
                     use:  [
@@ -53,6 +75,7 @@ module.exports = {
                         }
                     ],
                 },
+
                 {
                     exclude: [/\.js$/, /\.html$/, /\.json$/],
                     loader:  require.resolve('file-loader'),
@@ -63,16 +86,11 @@ module.exports = {
             ],
         }],
     },
-    plugins: [
-        new HtmlWebPackPlugin({
-            template: './src/index.html',
-            filename: './index.html',
-        })
-    ],
     devServer: {
-        inline:   true,
-        port:     1337,
-        compress: true,
-        overlay:  true,
+        contentBase:        path.resolve(__dirname, 'public'),
+        historyApiFallback: true,
+        inline:             true,
+        open:               true,
+        port:               8080,
     },
 };

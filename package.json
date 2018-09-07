@@ -4,14 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --fix --mode development --open ",
-    "build": "webpack --mode production"
+    "build": "cross-env NODE_ENV=production webpack",
+    "build:dev": "cross-env NODE_ENV=development webpack",
+    "start": "cross-env NODE_ENV=development webpack-dev-server -d --hot --config webpack.config.js --watch --https"
   },
   "author": "Alex",
   "license": "ISC",
   "dependencies": {
     "react": "^16.3.2",
-    "react-dom": "^16.3.2"
+    "react-dom": "^16.3.2",
+    "cross-env": "^5.0.5"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
